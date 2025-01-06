@@ -78,7 +78,7 @@ public class Hang extends LinearOpMode {
         robot.claw2.setPosition(0.33);
         robot.arm.setPosition(0.3);
         robot.basket.setPosition(0.23);
-        drive(23);
+        drive(22.8);
         strafe(-16);
         drive(2.5);
         vSlide(0.5,14.5);
