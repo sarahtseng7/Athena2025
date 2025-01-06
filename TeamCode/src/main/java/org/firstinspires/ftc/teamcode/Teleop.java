@@ -144,10 +144,10 @@ public class Teleop extends LinearOpMode {
             if(robot.vSlideMotor != null){
                 if(gamepad2.dpad_up) {
                     robot.vSlideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                    robot.vSlideMotor.setPower(0.4);
+                    robot.vSlideMotor.setPower(0.6);
                 } else if (gamepad2.dpad_down) {
                     robot.vSlideMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                    robot.vSlideMotor.setPower(0.4);
+                    robot.vSlideMotor.setPower(0.6);
                 } else {
                     robot.vSlideMotor.setPower(0.0);
                 }
@@ -196,10 +196,13 @@ public class Teleop extends LinearOpMode {
 
 
             if (gamepad2.x) {
-                robot.claw2.setPosition(0.45);
+                robot.claw2.setPosition(0.42);
             }
             if (gamepad2.b) {
-                robot.claw2.setPosition(0.45);
+                robot.claw2.setPosition(0.33);
+                robot.arm.setPosition(0.5);
+                Thread.sleep(100);
+                robot.claw2.setPosition(0.43);
             }
 
             if (opModeIsActive()) {
@@ -214,10 +217,13 @@ public class Teleop extends LinearOpMode {
 
             if (gamepad2.y) {
                 robot.claw2.setPosition(0.33); //close claw
+                Thread.sleep(200);
+                robot.claw2.setPosition(0.42); //open claw
+                Thread.sleep(200);
+                robot.claw2.setPosition(0.33); //close claw
+                robot.arm.setPosition(1.0);
                 Thread.sleep(100);
                 robot.claw2.setPosition(0.45); //open claw
-                Thread.sleep(100);
-                robot.arm.setPosition(1.0);
 
             } else if (gamepad2.a) {
                 robot.claw2.setPosition(0.33); //close claw

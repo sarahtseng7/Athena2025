@@ -21,8 +21,8 @@ public class BasketBasket extends LinearOpMode {
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * GEAR_RATIO) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
     //static final double SLIDE_INCHES = (COUNTS_PER_MOTOR_REV * 1) /(5.125);
-    static final double DRIVE_SPEED = 1.0;
-    static final double TURN_SPEED = 1.0;
+    static final double DRIVE_SPEED = 0.9;
+    static final double TURN_SPEED = 0.9;
     static final double SLIDE_SPEED = 0.05;
     static final double timeoutS = 30;
 
@@ -77,41 +77,39 @@ public class BasketBasket extends LinearOpMode {
         //WHERE ACTUAL CODE GOES
         robot.arm.setPosition(0.5);
         robot.basket.setPosition(0.22);
-        drive(3.4);
-        strafe(-24.6);
+        drive(3.5);
+        strafe(-24.5);
         turn(140);
-        drive(-1.9);
+        drive(-2);
         strafe(2.45);
-        vSlide(0.7,28);
+        vSlide(0.7,29.5);
         robot.basket.setPosition(0.96);
         vSlide(0.3,5);
-        sleep(150);
-        robot.basket.setPosition(0.24);
-        vSlide(0.7,-31);
+        sleep(100);
+        robot.basket.setPosition(0.23);
+        vSlide(0.7,-33.3);
 
         //part 2
-        strafe(-9.8);
+        strafe(-10);
         turn(-141.5);
-        drive(0.6,12.7);
-        //sleep(300);
-        //strafe(-0.5);
+        drive(0.6,11.6);
         robot.claw2.setPosition(0.45); //open claw
         robot.arm.setPosition(1.0);
         sleep(1100);
         robot.claw2.setPosition(0.33); //close claw
         sleep(500);
-        robot.arm.setPosition(0.26);
+        robot.arm.setPosition(0.3);
         sleep(1100);
         robot.claw2.setPosition(0.45);
         sleep(500);
         robot.arm.setPosition(0.5);
         robot.claw2.setPosition(0.33);
 
-        drive(-11.9);
+        drive(-12.32);
         turn(140);
         //drive(-0.5);
-        strafe(11.6);
-        vSlide(0.7,28);
+        strafe(11.2);
+        vSlide(0.7,30.5);
         robot.basket.setPosition(0.96);
         vSlide(0.3,5);
         sleep(100);

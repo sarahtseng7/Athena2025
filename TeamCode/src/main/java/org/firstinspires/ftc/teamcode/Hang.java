@@ -22,9 +22,9 @@ public class Hang extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     //static final double SLIDE_INCHES = (COUNTS_PER_MOTOR_REV * 1) /(5.125);
     static final double DRIVE_SPEED = 1.0;
-    static final double TURN_SPEED = 1.0;
+    static final double TURN_SPEED = 0.9;
     static final double SLIDE_SPEED = 0.05;
-    static final double timeoutS = 10;
+    static final double timeoutS = 30;
 
     @Override
     public void runOpMode() {
@@ -75,10 +75,10 @@ public class Hang extends LinearOpMode {
         }
 
         //WHERE ACTUAL CODE GOES
-        robot.claw2.setPosition(0.9);
+        robot.claw2.setPosition(0.33);
         robot.arm.setPosition(0.3);
         robot.basket.setPosition(0.23);
-        drive(23.2);
+        drive(23);
         strafe(-16);
         drive(2.5);
         vSlide(0.5,14.5);
@@ -92,14 +92,23 @@ public class Hang extends LinearOpMode {
 
         //after hang, move on to get another sample
         drive(-6);
-        strafe(47.3);
-        drive(4);
+        strafe(46.6);
+        drive(6);
         robot.arm.setPosition(1.0);
         robot.claw2.setPosition(0.47);
         sleep(1000);
         robot.claw2.setPosition(0.32);
-        sleep(1000);
+        sleep(800);
         robot.arm.setPosition(0.3);
+        //but sample in basket
+        sleep(800);
+        robot.claw2.setPosition(0.45);
+        sleep(500);
+        robot.arm.setPosition(0.5);
+        robot.claw2.setPosition(0.33);
+        //park in observation zone
+        drive(-20);
+        strafe(8);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

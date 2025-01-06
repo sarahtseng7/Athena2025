@@ -281,7 +281,7 @@ public class Hardware
         try {
             basket = hwMap.servo.get("basket");
             if (basket != null) {
-                basket.setPosition(0.24);
+                basket.setPosition(0.23);
             }
         }
         catch (Exception p_exeception) {
@@ -313,7 +313,7 @@ public class Hardware
             //v_motor_left_drive.setDirection (DcMotor.Direction.REVERSE);
             claw2 = hwMap.servo.get("claw2");
             if (claw2 != null) {
-                claw2.setPosition(0.45);
+                claw2.setPosition(0.33);
             }
 
 
