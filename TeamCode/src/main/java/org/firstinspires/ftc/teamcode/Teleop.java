@@ -147,7 +147,7 @@ public class Teleop extends LinearOpMode {
                     robot.vSlideMotor.setPower(0.6);
                 } else if (gamepad2.dpad_down) {
                     robot.vSlideMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                    robot.vSlideMotor.setPower(0.6);
+                    robot.vSlideMotor.setPower(0.9);
                 } else {
                     robot.vSlideMotor.setPower(0.0);
                 }
@@ -164,9 +164,8 @@ public class Teleop extends LinearOpMode {
                     robot.hSlideMotor.setPower(0.0);
                 }
             }
-
             if(robot.vSlideMotor != null){
-                if (gamepad2.right_trigger > 0) {
+                if (gamepad2.right_trigger != 0) {
                     resetRuntime();
                     while (getRuntime() < 8.55) {
                         while (getRuntime() < 4.1) {
@@ -199,6 +198,8 @@ public class Teleop extends LinearOpMode {
                 robot.claw2.setPosition(0.42);
             }
             if (gamepad2.b) {
+                robot.claw2.setPosition(0.42);
+                Thread.sleep(350);
                 robot.claw2.setPosition(0.33);
                 robot.arm.setPosition(0.5);
                 Thread.sleep(100);

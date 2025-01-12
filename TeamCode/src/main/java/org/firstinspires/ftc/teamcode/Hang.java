@@ -21,8 +21,9 @@ public class Hang extends LinearOpMode {
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * GEAR_RATIO) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
     //static final double SLIDE_INCHES = (COUNTS_PER_MOTOR_REV * 1) /(5.125);
-    static final double DRIVE_SPEED = 1.0;
-    static final double TURN_SPEED = 0.9;
+    static final double DRIVE_SPEED = 0.8;
+    static final double TURN_SPEED = 0.8
+            ;
     static final double SLIDE_SPEED = 0.05;
     static final double timeoutS = 30;
 
@@ -76,24 +77,26 @@ public class Hang extends LinearOpMode {
 
         //WHERE ACTUAL CODE GOES
         robot.claw2.setPosition(0.33);
-        robot.arm.setPosition(0.3);
+        robot.arm.setPosition(0.5);
         robot.basket.setPosition(0.23);
-        drive(22.8);
+
+        drive(0.7, 23.5);
         strafe(-16);
         drive(2.5);
-        vSlide(0.5,14.5);
-        drive(0.5,5.3);
-        //vSlide(0.4,-2.5);
+        vSlide(0.5,14.8);
+        drive(0.5,5.4);
+        vSlide(0.2,-6);
         sleep(1000);
-        turn(2);
-        drive(0.2,-6);
+        //turn(2);
+        drive(0.2,-4);
         sleep(500);
+        vSlide(0.2,-1);
         //turn(2);
 
         //after hang, move on to get another sample
-        drive(-6);
-        strafe(46.6);
-        drive(6);
+        drive(-4);
+        strafe(0.5, 48);
+        //drive(2);
         robot.arm.setPosition(1.0);
         robot.claw2.setPosition(0.47);
         sleep(1000);
@@ -378,6 +381,72 @@ public class Hang extends LinearOpMode {
         }
     }
 
+    public void strafe(double speed, double inches) {
+        int newLeftFrontTarget;
+        int newRightFrontTarget;
+        int newLeftBackTarget;
+        int newRightBackTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newLeftFrontTarget = robot.left_front_drv_Motor.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newRightFrontTarget = robot.right_front_drv_Motor.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newLeftBackTarget = robot.left_back_drv_Motor.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newRightBackTarget = robot.right_back_drv_Motor.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+            robot.left_front_drv_Motor.setTargetPosition(newLeftFrontTarget);
+            robot.right_front_drv_Motor.setTargetPosition(newRightFrontTarget);
+            robot.left_back_drv_Motor.setTargetPosition(newLeftBackTarget);
+            robot.right_back_drv_Motor.setTargetPosition(newRightBackTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.left_front_drv_Motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.right_front_drv_Motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.left_back_drv_Motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.right_back_drv_Motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            //accelerate(DRIVE_SPEED,newLeftBackTarget);
+            robot.left_front_drv_Motor.setPower(Math.abs(speed));
+            robot.right_front_drv_Motor.setPower(Math.abs(speed));
+            robot.left_back_drv_Motor.setPower(Math.abs(speed));
+            robot.right_back_drv_Motor.setPower(Math.abs(speed));
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.left_front_drv_Motor.isBusy() && robot.right_front_drv_Motor.isBusy() && robot.right_back_drv_Motor.isBusy() && robot.left_back_drv_Motor.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", newLeftFrontTarget, newRightFrontTarget, newLeftBackTarget, newRightBackTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        robot.left_front_drv_Motor.getCurrentPosition(),
+                        robot.right_front_drv_Motor.getCurrentPosition());
+                telemetry.update();
+            }
+
+
+            // Stop all motion;
+            robot.left_front_drv_Motor.setPower(0);
+            robot.right_front_drv_Motor.setPower(0);
+            robot.left_back_drv_Motor.setPower(0);
+            robot.right_back_drv_Motor.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.left_front_drv_Motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.right_front_drv_Motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.left_back_drv_Motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.right_back_drv_Motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
     public void turn(double degrees) {
         int newLeftFrontTarget;
         int newRightFrontTarget;

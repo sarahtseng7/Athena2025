@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.RobotConstants.inches;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 //import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -22,7 +24,7 @@ public class BasketBasket extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     //static final double SLIDE_INCHES = (COUNTS_PER_MOTOR_REV * 1) /(5.125);
     static final double DRIVE_SPEED = 0.9;
-    static final double TURN_SPEED = 0.9;
+    static final double TURN_SPEED = 0.65;
     static final double SLIDE_SPEED = 0.05;
     static final double timeoutS = 30;
 
@@ -69,7 +71,7 @@ public class BasketBasket extends LinearOpMode {
         // Step 3:  Drive Backwards for 1 Second
         //robot.hang_motor.setPower(-.5);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.6)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -77,25 +79,29 @@ public class BasketBasket extends LinearOpMode {
         //WHERE ACTUAL CODE GOES
         robot.arm.setPosition(0.5);
         robot.basket.setPosition(0.22);
-        drive(3.5);
-        strafe(-24.5);
+        drive(4);
+        strafe(-24.8);
         turn(140);
-        drive(-2);
-        strafe(2.45);
+        drive(-1.2);
+        strafe(2.4);
         vSlide(0.7,29.5);
         robot.basket.setPosition(0.96);
         vSlide(0.3,5);
-        sleep(100);
+        sleep(150);
         robot.basket.setPosition(0.23);
-        vSlide(0.7,-33.3);
+        vSlide(0.7,-32.5);
 
         //part 2
-        strafe(-10);
+        strafe(-10.2);
         turn(-141.5);
-        drive(0.6,11.6);
+        //strafe(-0.1);
+
+        //drive(0.3,4);
+        //drive(0.1,2.3);
+        //sleep(500);
         robot.claw2.setPosition(0.45); //open claw
         robot.arm.setPosition(1.0);
-        sleep(1100);
+        drive(0.5,10.8);
         robot.claw2.setPosition(0.33); //close claw
         sleep(500);
         robot.arm.setPosition(0.3);
@@ -105,14 +111,14 @@ public class BasketBasket extends LinearOpMode {
         robot.arm.setPosition(0.5);
         robot.claw2.setPosition(0.33);
 
-        drive(-12.32);
+        drive(-10.5);
         turn(140);
         //drive(-0.5);
-        strafe(11.2);
+        strafe(11.1);
         vSlide(0.7,30.5);
         robot.basket.setPosition(0.96);
         vSlide(0.3,5);
-        sleep(100);
+        sleep(150);
         robot.basket.setPosition(0.23);
         vSlide(0.7,-33);
 
