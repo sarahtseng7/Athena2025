@@ -73,8 +73,9 @@ public class BasketAscent extends LinearOpMode {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
+        robot.arm.setPosition(0);
         //WHERE ACTUAL CODE GOES
+        /*
         robot.arm.setPosition(0.5);
         robot.basket.setPosition(0.22);
         drive(3.3);
@@ -115,7 +116,7 @@ public class BasketAscent extends LinearOpMode {
         sleep(300);
         robot.basket.setPosition(0.23);
         vSlide(0.7,-31.5);
-
+*/
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }

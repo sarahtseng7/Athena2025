@@ -223,7 +223,7 @@ public class Teleop extends LinearOpMode {
                 robot.claw2.setPosition(0.33); //close claw
                 robot.arm.setPosition(1.0);
                 Thread.sleep(100);
-                robot.claw2.setPosition(0.45); //open claw
+                robot.a.setPosition(0.45); //open claw
 
             } else if (gamepad2.a) {
                 robot.claw2.setPosition(0.33); //close claw
