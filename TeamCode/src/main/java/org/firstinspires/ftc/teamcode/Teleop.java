@@ -232,6 +232,7 @@ public class Teleop extends LinearOpMode {
             }
 
 /*
+fds
             if(robot.claw1 != null){
                 if(gamepad2.dpad_left) {
                     robot.claw1.setDirection(CRServo.Direction.FORWARD);
